@@ -102,7 +102,7 @@
   .wrap, nav { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
   section { padding-block: clamp(104px, 14vw, 152px) 0; scroll-margin-top: 76px; }
   h1, h2, h3 { text-wrap: balance; margin: 0; letter-spacing: -0.03em; line-height: 1.15; }
-  h1 { font-size: clamp(2.3rem, 6.2vw, 4.4rem); font-weight: 700; }
+  h1 { font-size: clamp(2.2rem, 5.2vw, 3.8rem); font-weight: 700; }
   h2 { font-size: clamp(1.7rem, 3.8vw, 2.6rem); font-weight: 700; }
   h3 { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; }
   p { margin: 0; }
@@ -157,7 +157,7 @@
   body.lang-fade [data-i18n], body.lang-fade [data-st] { opacity: 0; }
 
   /* 히어로 */
-  .hero { padding-block: 48px 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; justify-items: start; }
+  .hero { padding-block: 20px 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; justify-items: start; }
   .hero .lead { margin-top: 4px; }
   .cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 
@@ -241,7 +241,7 @@
 
   /* 히어로 무대: 파란 물결 바탕화면 위에서 마우스가 패널의 카드를 눌러 해당 창으로 이동하는 장면이 반복된다. */
   .tour {
-    position: relative; width: 100%; height: clamp(430px, 46vw, 520px);
+    position: relative; width: 100%; height: clamp(430px, 40vw, 460px);
     border-radius: 28px; overflow: hidden; border: 1px solid var(--line); user-select: none;
     background:
       radial-gradient(130% 55% at 52% 108%, #00229a 0%, rgba(0, 34, 154, 0) 62%),
