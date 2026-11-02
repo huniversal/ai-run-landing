@@ -40,6 +40,7 @@
     --menubar-bg: rgba(28, 24, 26, 0.42);
     --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
     --font-pixel: "DotGothic16", "Apple SD Gothic Neo", "Noto Sans KR", monospace;
+    --strip: #2b2626;
     --wallpaper:
       radial-gradient(130% 55% at 52% 108%, #00229a 0%, rgba(0, 34, 154, 0) 62%),
       radial-gradient(60% 55% at 6% 102%, #6fb0c9 0%, rgba(111, 176, 201, 0) 70%),
@@ -60,6 +61,7 @@
       --btn-bg: #f5f5f7;
       --btn-fg: #1d1d1f;
       --btn-ghost: rgba(255, 255, 255, 0.09);
+      --strip: #1c1819;
       color-scheme: dark;
     }
   }
@@ -72,6 +74,7 @@
     --btn-bg: #f5f5f7;
     --btn-fg: #1d1d1f;
     --btn-ghost: rgba(255, 255, 255, 0.09);
+    --strip: #1c1819;
     color-scheme: dark;
   }
 
@@ -256,7 +259,7 @@
   /* 상태 */
   .states { margin-top: 36px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 16px; }
   .state { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 14px 14px 22px; display: grid; gap: 14px; align-content: start; }
-  .strip { background: var(--wallpaper); border-radius: 12px; height: 92px; display: grid; place-items: center; }
+  .strip { background: var(--strip); border-radius: 12px; height: 92px; display: grid; place-items: center; }
   .strip canvas { image-rendering: pixelated; display: block; }
   .state h3 { padding-inline: 6px; }
   .state p { padding-inline: 6px; color: var(--muted); font-size: 0.96rem; }
@@ -398,8 +401,8 @@
   </section>
 
   <footer>
-    <p data-i18n="footer.1">Desktoto는 개인 프로젝트예요.</p>
-    <p data-i18n="footer.2">Claude는 Anthropic의, Codex는 OpenAI의 상표예요. 이 프로젝트는 두 회사와 관련이 없어요.</p>
+    <p data-i18n="footer.1">Desktoto는 수익을 목적으로 하지 않는 무료 프로젝트예요. 광고도, 결제도 없어요.</p>
+    <p data-i18n="footer.2">캐릭터는 Claude Code의 마스코트에서 영감을 받은 팬 작품이에요. Claude는 Anthropic의, Codex는 OpenAI의 상표이고, Desktoto는 두 회사의 공식 제품이 아니에요.</p>
   </footer>
 </div>
 
@@ -757,8 +760,8 @@
     "privacy.reads.title": "What it reads", "privacy.reads.body": "Session records in <code>~/.claude/projects</code> and <code>~/.codex/sessions</code>, plus session info from the Claude desktop app and the usage response the app keeps temporarily on your computer (just the 5-hour and weekly usage values). It only uses status information: the title, model, token usage, limit usage, and whether a response has finished. It never reads your login credentials. For Codex usage, it asks the installed Codex app for the limit numbers only; you can turn this off in the right-click menu.",
     "privacy.not.title": "What it doesn't do", "privacy.not.body": "It doesn't send your conversations anywhere or store them separately. It doesn't handle account information either.",
     "privacy.opt.title": "Settings file", "privacy.opt.body": "If you use Claude Code, the first launch adds two entries to its settings file (<code>~/.claude/settings.json</code>): a hook that reports approval prompts and a statusLine that saves usage. A statusLine you already use keeps running. It makes a backup first, and you can turn it off anytime from Claude integration in the right-click menu.",
-    "footer.1": "Desktoto is a personal project.",
-    "footer.2": "Claude is a trademark of Anthropic and Codex is a trademark of OpenAI. This project is not affiliated with either company."
+    "footer.1": "Desktoto is a free, non-commercial project with no ads or payments.",
+    "footer.2": "The character is a fan creation inspired by the Claude Code mascot. Claude is a trademark of Anthropic and Codex is a trademark of OpenAI. Desktoto is not an official product of either company."
   };
 
   function getInitialLang() {
