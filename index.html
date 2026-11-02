@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Desktoto</title>
-<meta name="description" content="Desktoto는 Claude Code와 Codex 세션의 상태를 macOS 메뉴바의 작은 캐릭터로 보여줘요. Desktoto shows your Claude Code and Codex sessions as a small character in the macOS menu bar.">
+<meta name="description" content="Desktoto는 AI Agent 세션의 진행 상태를 macOS 메뉴바의 작은 캐릭터로 보여줘요. Desktoto shows the status of your AI agent sessions as a small character in the macOS menu bar.">
 <meta property="og:title" content="Desktoto">
-<meta property="og:description" content="Desktoto는 Claude Code와 Codex 세션의 상태를 macOS 메뉴바의 작은 캐릭터로 보여줘요. Desktoto shows your Claude Code and Codex sessions as a small character in the macOS menu bar.">
+<meta property="og:description" content="Desktoto는 AI Agent 세션의 진행 상태를 macOS 메뉴바의 작은 캐릭터로 보여줘요. Desktoto shows the status of your AI agent sessions as a small character in the macOS menu bar.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://huniversal.github.io/ai-run-landing/og.png">
 <meta property="og:image:width" content="1200">
@@ -110,8 +110,6 @@
   }
   .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
   .brand { font-family: var(--font-pixel); font-size: 1.15rem; letter-spacing: 0.04em; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; }
-  .logo { fill: currentColor; display: block; }
-  .logo .eye { fill: var(--bg); }
   .nav-links { display: flex; align-items: center; gap: 22px; font-size: 0.95rem; color: var(--muted); }
   .nav-links a { text-decoration: none; }
   .nav-links a.text { position: relative; padding-block: 4px; transition: color 0.2s; }
@@ -294,7 +292,7 @@
 <div id="top"></div>
 <nav>
   <div class="nav-inner">
-    <a class="brand" href="#top"><svg class="logo" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v10H3zM0 9h3v3H0zM21 9h3v3h-3zM4 15h2v4H4zM7 15h2v4H7zM15 15h2v4h-2zM18 15h2v4h-2z"/><path class="eye" d="M6 8h2v3H6zM16 8h2v3h-2z"/></svg>Desktoto</a>
+    <a class="brand" href="#top">Desktoto</a>
     <div class="nav-links">
       <a class="text" href="#states" data-i18n="nav.states">상태</a>
       <a class="text" href="#privacy" data-i18n="nav.privacy">개인정보</a>
@@ -303,7 +301,6 @@
         <button type="button" data-lang="ko" aria-pressed="true">KO</button>
         <button type="button" data-lang="en" aria-pressed="false">EN</button>
       </div>
-      <a class="btn small ghost" href="https://github.com/huniversal" target="_blank" rel="noopener noreferrer">GitHub</a>
     </div>
   </div>
 </nav>
@@ -311,9 +308,9 @@
 <div class="wrap">
   <header class="hero">
     <h1 data-i18n="hero.title">AI가 일하는 동안,<br>메뉴바에서 지켜보세요.</h1>
-    <p class="lead" data-i18n="hero.lead"><span class="ln">Desktoto는 Claude Code와 Codex 세션의 진행 상태를 메뉴바의 작은 캐릭터로 보여줘요.</span><span class="ln">작업이 끝났는지, 내 답을 기다리는지 창을 열지 않고도 알 수 있어요.</span></p>
+    <p class="lead" data-i18n="hero.lead"><span class="ln">Desktoto는 AI Agent 세션의 진행 상태를 메뉴바의 작은 캐릭터로 보여줘요.</span><span class="ln">작업이 끝났는지, 내 답을 기다리는지 창을 열지 않고도 알 수 있어요.</span></p>
     <div class="cta">
-      <a class="btn" href="https://github.com/huniversal" target="_blank" rel="noopener noreferrer" data-i18n="hero.cta1">GitHub에서 보기</a>
+      <a class="btn" href="https://github.com/huniversal/Desktoto" target="_blank" rel="noopener noreferrer"><svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><span data-i18n="hero.cta1">GitHub에서 보기</span></a>
     </div>
     <div id="heroStage" style="width:100%"></div>
   </header>
@@ -739,7 +736,7 @@
   var EN = {
     "nav.states": "States", "nav.privacy": "Privacy",
     "hero.title": "While AI works,<br>watch it from your menu bar.",
-    "hero.lead": "<span class=\"ln\">Desktoto shows the status of your Claude Code and Codex sessions as a small character in the menu bar.</span><span class=\"ln\">See when a task has finished, or when it's waiting for you, without opening a window.</span>",
+    "hero.lead": "<span class=\"ln\">Desktoto shows the status of your AI agent sessions as a small character in the menu bar.</span><span class=\"ln\">See when a task has finished, or when it's waiting for you, without opening a window.</span>",
     "hero.cta1": "View on GitHub",
     "problem.eyebrow": "The problem", "problem.title": "Run several sessions, and things slip by.",
     "problem.1": "You work in another window and only notice a task finished long after it did.",
