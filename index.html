@@ -194,10 +194,6 @@
 
   /* 줄이 펼쳐질 때(+15px) 스테이지 크기가 변하지 않도록, 펼쳐진 높이만큼 미리 확보해 둔다. */
   .stage-body { display: flex; justify-content: flex-end; align-items: flex-start; padding: 14px 18px 0; min-height: 244px; }
-  /* 히어로의 패널은 보여주기만 한다. 호버로 펼쳐지거나 색이 움직이지 않고, 캐릭터만 달린다. */
-  .stage.fixed .panel { pointer-events: none; }
-  .stage.fixed .detail { display: none; }
-  .stage.fixed .flow { animation: none; }
   @media (max-width: 760px) { .stage-body { justify-content: center; } }
   .panel {
     width: min(300px, 100%);
@@ -242,6 +238,93 @@
   .detail > div { overflow: hidden; display: flex; justify-content: space-between; gap: 8px; font-size: 11px; color: var(--glass-muted); font-variant-numeric: tabular-nums; }
   .row:hover .detail, .row:focus-visible .detail, .row:focus-within .detail { grid-template-rows: 1fr; opacity: 1; }
   .row:hover .detail > div, .row:focus-visible .detail > div { padding-top: 1px; }
+
+  /* 히어로 무대: 파란 물결 바탕화면 위에서 마우스가 패널의 카드를 눌러 해당 창으로 이동하는 장면이 반복된다. */
+  .tour {
+    position: relative; width: 100%; height: clamp(430px, 46vw, 520px);
+    border-radius: 28px; overflow: hidden; border: 1px solid var(--line); user-select: none;
+    background:
+      radial-gradient(130% 55% at 52% 108%, #00229a 0%, rgba(0, 34, 154, 0) 62%),
+      radial-gradient(60% 55% at 6% 102%, #6fb0c9 0%, rgba(111, 176, 201, 0) 70%),
+      radial-gradient(52% 70% at 104% 88%, #a9cadb 0%, rgba(169, 202, 219, 0) 72%),
+      radial-gradient(85% 34% at 38% 50%, #58bdee 0%, rgba(88, 189, 238, 0) 72%),
+      radial-gradient(60% 40% at 82% 36%, #2f7ee2 0%, rgba(47, 126, 226, 0) 74%),
+      radial-gradient(34% 22% at 34% 30%, #1f86da 0%, rgba(31, 134, 218, 0) 74%),
+      radial-gradient(40% 40% at 0% 52%, #1ea0e0 0%, rgba(30, 160, 224, 0) 72%),
+      linear-gradient(180deg, #cfd0de 0%, #e8dfb4 20%, #dcdcd2 33%, #7db2ea 50%, #2f6fe0 76%, #1d4fc4 100%);
+  }
+  .tour-line { position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+  .tour .menubar { position: absolute; inset: 0 0 auto; z-index: 6; background: rgba(18, 26, 58, 0.5); }
+  .tour-win {
+    position: absolute; z-index: 2; border-radius: 14px; overflow: hidden;
+    box-shadow: 0 10px 28px rgba(0, 20, 80, 0.3), 0 0 0 0.5px rgba(0, 0, 0, 0.35);
+    outline: 2px solid transparent; outline-offset: -2px;
+    filter: brightness(0.88) saturate(0.9);
+    transition: filter 0.35s, outline-color 0.6s, transform 0.35s, box-shadow 0.35s;
+  }
+  .tour-win.front { z-index: 3; filter: none; transform: scale(1.008); box-shadow: 0 22px 50px rgba(0, 20, 80, 0.45), 0 0 0 0.5px rgba(0, 0, 0, 0.4); }
+  .tour-win.flash { outline-color: rgba(255, 255, 255, 0.9); }
+  .tour-bar { height: 32px; display: flex; align-items: center; justify-content: center; position: relative; font-size: 12px; }
+  .tour-lights { position: absolute; left: 12px; display: flex; gap: 8px; }
+  .tour-lights i { width: 12px; height: 12px; border-radius: 50%; background: #6e6e73; }
+  .tour-win.front .tour-lights i:nth-child(1) { background: #ff5f57; }
+  .tour-win.front .tour-lights i:nth-child(2) { background: #febc2e; }
+  .tour-win.front .tour-lights i:nth-child(3) { background: #28c840; }
+  .tour-term { left: 3%; top: 68px; width: clamp(250px, 44%, 470px); height: clamp(230px, 56%, 290px); background: rgba(26, 26, 30, 0.94); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); }
+  .tour-term .tour-bar { color: #a9a9b0; background: rgba(255, 255, 255, 0.05); }
+  .tour-term .tour-text { padding: 12px 16px; font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12px; line-height: 1.85; color: #d6d6dc; white-space: nowrap; overflow: hidden; }
+  .tour-term .c-b { color: #8fb4ff; } .tour-term .c-g { color: #7ee2a0; } .tour-term .c-y { color: #f2c46b; } .tour-term .c-d { color: #8a8a94; }
+  .tour-cur { display: inline-block; width: 7px; height: 13px; background: #d6d6dc; vertical-align: -2px; animation: blink 1s steps(2) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .tour-app { left: 15%; top: 150px; width: clamp(250px, 44%, 470px); height: clamp(240px, 60%, 300px); background: #f7f6f8; display: flex; flex-direction: column; }
+  .tour-app .tour-bar { color: #55555c; background: #ecebef; border-bottom: 0.5px solid #d6d5da; }
+  .tour-main { display: flex; flex: 1; min-height: 0; }
+  .tour-side { width: 30%; background: #eceaf0; padding: 12px 8px; border-right: 0.5px solid #d6d5da; }
+  .tour-side p { margin: 0 0 6px; padding: 6px 8px; font-size: 12px; line-height: 1.4; color: #4a4a52; border-radius: 7px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tour-side p.on { background: #dcd9e6; color: #222; }
+  .tour-chat { flex: 1; min-width: 0; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; font-size: 13px; line-height: 1.55; color: #25252b; }
+  .tour-me { align-self: flex-end; background: #e4e1ee; padding: 7px 12px; border-radius: 13px 13px 3px 13px; max-width: 82%; }
+  .tour-ai { max-width: 94%; }
+  .tour-input { margin-top: auto; border: 0.5px solid #cfcdd6; border-radius: 11px; background: #fff; padding: 8px 12px; font-size: 12px; color: #8b8b94; }
+  .tour-panel {
+    position: absolute; right: 14px; top: 54px; z-index: 7; width: min(300px, calc(100% - 28px));
+    display: flex; flex-direction: column; gap: 8px;
+    opacity: 0; transform: translateY(-6px) scale(0.97); transform-origin: top right; pointer-events: none;
+    transition: opacity 0.22s, transform 0.22s;
+  }
+  .tour-panel.open { opacity: 1; transform: none; }
+  .tour-glass {
+    border-radius: 22px; color: #fff; font-size: 14px; line-height: 1.35;
+    background: rgba(28, 28, 34, 0.58); border: 0.5px solid rgba(255, 255, 255, 0.16);
+    -webkit-backdrop-filter: blur(30px) saturate(1.5); backdrop-filter: blur(30px) saturate(1.5);
+    box-shadow: 0 14px 34px rgba(0, 20, 80, 0.35);
+  }
+  .tour-usage { padding: 14px 16px 12px; }
+  .tour-usage h4 { margin: 0 0 7px; font-size: 14px; font-weight: 600; letter-spacing: 0; }
+  .tour-usage .sec + .sec { margin-top: 9px; padding-top: 10px; border-top: 0.5px solid rgba(255, 255, 255, 0.12); }
+  .tour-use { display: grid; grid-template-columns: 38px 1fr 36px 66px; align-items: center; gap: 8px; margin-bottom: 6px; font-size: 12px; color: rgba(255, 255, 255, 0.55); font-variant-numeric: tabular-nums; }
+  .tour-use b { font-weight: 600; color: #fff; text-align: right; }
+  .tour-use em { font-style: normal; text-align: right; white-space: nowrap; }
+  .tour-track { height: 4px; border-radius: 2px; background: rgba(255, 255, 255, 0.18); }
+  .tour-track i { display: block; height: 100%; border-radius: 2px; background: #e9e9ee; }
+  .tour-sessions { padding: 6px; }
+  .tour-row { padding: 10px 12px; border-radius: 16px; transition: background 0.2s, transform 0.12s; }
+  .tour-row .head { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 8px; font-weight: 600; }
+  .tour-row .head span:first-child { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tour-row .head span:last-child { flex: none; font-size: 12px; font-weight: 400; color: rgba(255, 255, 255, 0.6); }
+  .tour-row .tour-track i { background: rgba(255, 255, 255, 0.62); }
+  .tour-row .more { max-height: 0; opacity: 0; overflow: hidden; display: flex; justify-content: space-between; font-size: 11px; color: rgba(255, 255, 255, 0.6); font-variant-numeric: tabular-nums; transition: max-height 0.25s, opacity 0.25s, margin 0.25s; }
+  .tour-row.hover { background: linear-gradient(100deg, rgba(150, 160, 230, 0.28), rgba(230, 140, 190, 0.3)); }
+  .tour-row.hover .more { max-height: 16px; opacity: 1; margin-top: 8px; }
+  .tour-row.press { transform: scale(0.97); }
+  .tour-cursor { position: absolute; left: 0; top: 0; z-index: 9; width: 24px; height: 29px; pointer-events: none; filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.45)); }
+  .tour-ripple { position: absolute; left: 0; top: 0; z-index: 8; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%; border: 2px solid #fff; opacity: 0; pointer-events: none; }
+  .tour-ripple.go { animation: ripple 0.5s ease-out; }
+  @keyframes ripple { from { opacity: 0.85; transform: scale(0.2); } to { opacity: 0; transform: scale(1.1); } }
+  @media (prefers-reduced-motion: reduce) {
+    .tour-win, .tour-panel, .tour-row, .tour-row .more { transition: none; }
+    .tour-cur { animation: none; }
+  }
 
   /* 문제 */
   .problems { margin-top: 28px; display: grid; gap: 0; border-top: 1px solid var(--line); }
@@ -565,8 +648,16 @@
   /* 언어: 데모 화면(메뉴바, 세션 제목, 알약)은 스크립트가 만들어서 따로 사전을 둔다. */
   var lang = "ko";
   var STAGE_TEXT = {
-    ko: { file: "파일", edit: "편집", view: "보기", go: "이동", input: "한", clock: "오전 10:24", title0: "결제 모듈 리팩터링", title1: "로그인 버그 수정", title2: "문서 정리", pill: "필요", label: "Ai Run이 메뉴바와 패널에 표시되는 모습의 예시" },
-    en: { file: "File", edit: "Edit", view: "View", go: "Go", input: "A", clock: "10:24 AM", title0: "Refactor payments module", title1: "Fix login bug", title2: "Tidy up docs", pill: "Needed", label: "Example of how Ai Run appears in the menu bar and panel" }
+    ko: { file: "파일", edit: "편집", view: "보기", go: "이동", input: "한", clock: "오전 10:24", title0: "결제 모듈 리팩터링", title1: "로그인 버그 수정", title2: "문서 정리", pill: "필요", label: "Ai Run이 메뉴바와 패널에 표시되는 모습의 예시",
+      tourLabel: "마우스가 패널의 세션 카드를 누르면 해당 터미널이나 앱 창이 앞으로 나오는 장면의 예시",
+      tourT1: "결제 모듈을 정리할게요.", tourT2: "테스트 12개 통과", tourT3: "이 변경을 적용할까요?",
+      tourMe: "로그인이 가끔 실패하는 이유를 찾아줘", tourAi: "토큰이 만료될 때 갱신 요청이 두 번 나가고 있어요. 한 번만 보내도록 고칠게요.", tourInput: "메시지를 입력하세요",
+      tourH5: "5시간", tourWk: "주간", tourR1: "3시간 12분", tourR2: "4일 2시간", tourR3: "4시간 40분", tourR4: "6일 1시간"  },
+    en: { file: "File", edit: "Edit", view: "View", go: "Go", input: "A", clock: "10:24 AM", title0: "Refactor payments module", title1: "Fix login bug", title2: "Tidy up docs", pill: "Needed", label: "Example of how Ai Run appears in the menu bar and panel",
+      tourLabel: "Example of a mouse clicking a session card in the panel and the matching terminal or app window coming to the front",
+      tourT1: "I'll tidy up the payments module.", tourT2: "12 tests passed", tourT3: "Apply this change?",
+      tourMe: "Find out why login sometimes fails", tourAi: "The refresh request goes out twice when the token expires. I'll make it send only once.", tourInput: "Type a message",
+      tourH5: "5h", tourWk: "Weekly", tourR1: "3h 12m", tourR2: "4d 2h", tourR3: "4h 40m", tourR4: "6d 1h" }
   };
 
   /* 무대: 메뉴바 + 패널. 첫 번째 세션의 상태를 바꾸면 아이콘과 패널이 함께 바뀐다. */
@@ -599,10 +690,6 @@
           }).join("") +
         '</div></div>' +
       '</div>';
-    if (options && options.fixed) {
-      root.querySelector(".stage").classList.add("fixed");
-      root.querySelectorAll(".row").forEach(function (r) { r.removeAttribute("tabindex"); });
-    }
     var icon = new Sprite(root.querySelector("canvas.icon"), unit, { mode: "run" });
     var row = root.querySelector('.row[data-index="0"]');
     var head = row.querySelector(".row-head");
@@ -631,8 +718,124 @@
     return { setState: setState };
   }
 
-  /* 히어로: 상태 전환이나 호버 없이, 메뉴바의 캐릭터만 계속 달린다. */
-  buildStage(document.getElementById("heroStage"), 2, { fixed: true });
+  /* 히어로: 마우스가 메뉴바의 캐릭터를 눌러 패널을 열고, 카드를 누르면 그 세션의 창(터미널 또는 앱)이 앞으로 나오는 장면을 번갈아 반복한다. */
+  function buildHeroTour(root) {
+    var USAGE = [
+      { name: "Claude", rows: [["tourH5", 42, "tourR1"], ["tourWk", 18, "tourR2"]] },
+      { name: "Codex", rows: [["tourH5", 12, "tourR3"], ["tourWk", 6, "tourR4"]] }
+    ];
+    var LIGHTS = '<span class="tour-lights"><i></i><i></i><i></i></span>';
+    root.innerHTML =
+      '<div class="tour" role="img" aria-label="" data-st-label="tourLabel">' +
+        '<svg class="tour-line" viewBox="0 0 680 410" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><filter id="tourBlur"><feGaussianBlur stdDeviation="0.7"/></filter></defs>' +
+          '<path d="M-80 146 L0 164 C120 190 260 262 360 258 C480 252 600 150 680 42 C720 -12 760 -60 790 -95" fill="none" stroke="#fff" stroke-width="1.4" opacity="0.8" filter="url(#tourBlur)"/></svg>' +
+        MENUBAR +
+        '<div class="tour-win tour-term" aria-hidden="true"><div class="tour-bar">' + LIGHTS + '<span>claude — payments</span></div><div class="tour-text">' +
+          '<div><span class="c-b">❯</span> claude</div>' +
+          '<div><span class="c-g">●</span> <span data-st="tourT1"></span></div>' +
+          '<div class="c-d">  Read(src/payments/charge.ts)</div><div class="c-d">  Edit(src/payments/refund.ts)</div>' +
+          '<div><span class="c-g">✓</span> <span data-st="tourT2"></span></div>' +
+          '<div><span class="c-y">?</span> <span data-st="tourT3"></span> <span class="tour-cur"></span></div>' +
+        '</div></div>' +
+        '<div class="tour-win tour-app" aria-hidden="true"><div class="tour-bar">' + LIGHTS + '<span data-st="title1"></span></div><div class="tour-main">' +
+          '<div class="tour-side"><p class="on" data-st="title1"></p><p data-st="title2"></p><p data-st="title0"></p></div>' +
+          '<div class="tour-chat"><div class="tour-me" data-st="tourMe"></div><div class="tour-ai" data-st="tourAi"></div><div class="tour-input" data-st="tourInput"></div></div>' +
+        '</div></div>' +
+        '<div class="tour-panel" aria-hidden="true">' +
+          '<div class="tour-glass tour-usage">' +
+            USAGE.map(function (group) {
+              return '<div class="sec"><h4>' + group.name + '</h4>' + group.rows.map(function (r) {
+                return '<div class="tour-use"><span data-st="' + r[0] + '"></span><div class="tour-track"><i style="width:' + r[1] + '%"></i></div><b>' + r[1] + '%</b><em data-st="' + r[2] + '"></em></div>';
+              }).join("") + '</div>';
+            }).join("") +
+          '</div>' +
+          '<div class="tour-glass tour-sessions">' +
+            SESSIONS.map(function (s, i) {
+              var pct = Math.round(s.used / s.windowSize * 100);
+              return '<div class="tour-row"><div class="head"><span data-st="title' + i + '"></span><span>' + pct + '%</span></div><div class="tour-track"><i style="width:' + pct + '%"></i></div>' +
+                '<div class="more"><span>' + s.model + '</span><span>' + formatTokens(s.used) + ' / ' + formatTokens(s.windowSize) + '</span></div></div>';
+            }).join("") +
+          '</div>' +
+        '</div>' +
+        '<div class="tour-ripple"></div>' +
+        '<svg class="tour-cursor" viewBox="0 0 20 24" aria-hidden="true"><path d="M2 1 L2 18 L6.5 14 L9.5 21 L12.5 19.7 L9.6 13 L15.5 13 Z" fill="#111" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg>' +
+      '</div>';
+
+    var stage = root.querySelector(".tour");
+    var panel = root.querySelector(".tour-panel");
+    var cursor = root.querySelector(".tour-cursor");
+    var ripple = root.querySelector(".tour-ripple");
+    var wins = [].slice.call(root.querySelectorAll(".tour-win"));
+    var rows = [].slice.call(root.querySelectorAll(".tour-row"));
+    var icon = new Sprite(root.querySelector("canvas.icon"), 2, { mode: "run" });
+
+    // 움직임을 줄인 설정에서는 패널이 열린 정지 장면만 보여 준다.
+    if (reduceMotion) {
+      panel.classList.add("open");
+      wins[0].classList.add("front");
+      cursor.style.display = "none";
+      return;
+    }
+
+    var isVisible = true;
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) { isVisible = entries[0].isIntersecting; }).observe(stage);
+    }
+    // 화면에서 벗어났거나 탭이 가려져 있으면 다음 동작으로 넘어가지 않고 기다린다.
+    function wait(ms) {
+      return new Promise(function (resolve) { setTimeout(resolve, ms); }).then(function () {
+        return new Promise(function (resolve) { (function check() { if (isVisible && !document.hidden) resolve(); else setTimeout(check, 200); })(); });
+      });
+    }
+    function pointOf(el, fx, fy) {
+      var s = stage.getBoundingClientRect(), r = el.getBoundingClientRect();
+      return [r.left - s.left + r.width * fx, r.top - s.top + r.height * fy];
+    }
+    var at = [0, 0];
+    function jump(x, y) { at = [x, y]; cursor.style.transition = "none"; cursor.style.transform = "translate(" + x + "px," + y + "px)"; }
+    function glide(x, y, ms) {
+      at = [x, y];
+      cursor.style.transition = "transform " + ms + "ms cubic-bezier(0.45, 0.05, 0.25, 1)";
+      cursor.style.transform = "translate(" + x + "px," + y + "px)";
+      return wait(ms);
+    }
+    function click() {
+      ripple.style.left = (at[0] + 2) + "px"; ripple.style.top = (at[1] + 2) + "px";
+      ripple.classList.remove("go"); void ripple.offsetWidth; ripple.classList.add("go");
+    }
+    function bringToFront(index) {
+      wins.forEach(function (w, n) { w.classList.toggle("front", n === index); w.classList.remove("flash"); });
+    }
+
+    async function playOnce(index) {
+      var restX = stage.clientWidth * 0.45, restY = stage.clientHeight - 70;
+      bringToFront(1 - index);
+      panel.classList.remove("open");
+      jump(restX, restY);
+      await wait(600);
+      var iconPoint = pointOf(icon.canvas, 0.5, 0.5);
+      await glide(iconPoint[0], iconPoint[1], 1000);
+      click(); await wait(180);
+      panel.classList.add("open"); await wait(500);
+      var rowPoint = pointOf(rows[index], 0.6, 0.5);
+      await glide(rowPoint[0], rowPoint[1], 900);
+      rows[index].classList.add("hover"); await wait(500);
+      click(); rows[index].classList.add("press"); await wait(220);
+      panel.classList.remove("open");
+      rows[index].classList.remove("hover", "press");
+      bringToFront(index);
+      wins[index].classList.add("flash");
+      await glide(restX, restY, 900);
+      await wait(900);
+      wins[index].classList.remove("flash");
+      await wait(1300);
+    }
+    (async function loop() {
+      var turn = 0;
+      while (true) { await playOnce(turn % wins.length); turn++; }
+    })();
+  }
+  buildHeroTour(document.getElementById("heroStage"));
 
   /* 직접 눌러 보기 */
   var demo = buildStage(document.getElementById("demoStage"), 2);
