@@ -412,7 +412,7 @@
       <dl class="privacy-list" style="margin:0">
         <div><dt data-i18n="privacy.reads.title">읽는 것</dt><dd data-i18n="privacy.reads.body"><code>~/.claude/projects</code>와 <code>~/.codex/sessions</code>의 세션 기록, Claude 데스크탑 앱의 세션 정보. 제목, 모델, 토큰 사용량, 5시간·주간 한도 사용률, 응답이 끝났는지 같은 상태만 써요.</dd></div>
         <div><dt data-i18n="privacy.not.title">하지 않는 것</dt><dd data-i18n="privacy.not.body">대화 내용을 밖으로 보내거나 따로 저장하지 않아요. 계정 정보도 다루지 않아요.</dd></div>
-        <div><dt data-i18n="privacy.opt.title">선택 사항</dt><dd data-i18n="privacy.opt.body">승인 창을 감지하려면 Claude Code의 설정 파일에 hook 항목 하나를 직접 추가해야 해요. 추가하지 않아도 나머지 기능은 그대로 동작해요.</dd></div>
+        <div><dt data-i18n="privacy.opt.title">설정 파일</dt><dd data-i18n="privacy.opt.body">Claude Code를 쓰고 있으면, 처음 켤 때 Claude Code의 설정 파일(<code>~/.claude/settings.json</code>)에 항목 두 개를 자동으로 추가해요. 승인 대기를 알리는 hook과 사용량을 저장하는 statusLine이에요. 이미 쓰는 statusLine은 그대로 실행돼요. 바꾸기 전에 백업을 만들고, 우클릭 메뉴의 Claude Code 연동에서 언제든 해제할 수 있어요.</dd></div>
       </dl>
     </div>
   </section>
@@ -714,7 +714,7 @@
     "privacy.lead": "<span class=\"ln\">Ai Run sends nothing to the internet.</span><span class=\"ln\">It only reads session records that are already on your computer.</span>",
     "privacy.reads.title": "What it reads", "privacy.reads.body": "Session records in <code>~/.claude/projects</code> and <code>~/.codex/sessions</code>, plus session info from the Claude desktop app. It only uses status information: the title, model, token usage, 5-hour and weekly limit usage, and whether a response has finished.",
     "privacy.not.title": "What it doesn't do", "privacy.not.body": "It doesn't send your conversations anywhere or store them separately. It doesn't handle account information either.",
-    "privacy.opt.title": "Optional", "privacy.opt.body": "To detect approval prompts, you add one hook entry to Claude Code's settings file yourself. Everything else works without it.",
+    "privacy.opt.title": "Settings file", "privacy.opt.body": "If you use Claude Code, the first launch adds two entries to its settings file (<code>~/.claude/settings.json</code>): a hook that reports approval prompts and a statusLine that saves usage. A statusLine you already use keeps running. It makes a backup first, and you can turn it off anytime from Claude Code integration in the right-click menu.",
     "footer.1": "Ai Run is a personal project.",
     "footer.2": "Claude is a trademark of Anthropic and Codex is a trademark of OpenAI. This project is not affiliated with either company."
   };
