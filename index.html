@@ -265,6 +265,8 @@
   /* 항목이 4개라서 2x2로 놓는다. 자동 열 개수에 맡기면 넓은 화면에서 3개 + 1개로 나뉘어 마지막 하나가 혼자 아래에 남는다. */
   .features { margin-top: 36px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; }
   @media (max-width: 640px) { .features { grid-template-columns: minmax(0, 1fr); } }
+  /* 항목이 홀수 개일 때 마지막 하나가 한쪽에 비어 보이지 않도록 전체 너비를 쓴다. */
+  .feature:last-child:nth-child(odd) { grid-column: 1 / -1; }
   .feature { padding-block: 22px; border-top: 1px solid var(--line); display: grid; align-content: start; gap: 6px; }
   .feature p { color: var(--muted); font-size: 0.98rem; }
 
@@ -393,6 +395,10 @@
         <h3 data-i18n="f4.title">컨텍스트 사용률</h3>
         <p data-i18n="f4.body">모델마다 다른 컨텍스트 창 크기를 반영해서 사용률을 계산해요. 창 크기를 확정하지 못하면 숫자 앞에 ~를 붙여서 추정값이라고 알려요.</p>
       </div>
+      <div class="feature">
+        <h3 data-i18n="f5.title">AI 사용량도 한눈에</h3>
+        <p data-i18n="f5.body">Claude와 Codex의 5시간·주간 한도를 패널 맨 위에 고정해서 보여줘요. 얼마나 썼는지와 초기화까지 남은 시간을 알 수 있고, 한도에 가까워지면 막대 색이 바뀌어요. 값은 그 AI를 쓸 때 갱신돼요.</p>
+      </div>
     </div>
   </section>
 
@@ -404,7 +410,7 @@
         <p class="lead" style="margin-top:14px" data-i18n="privacy.lead"><span class="ln">Ai Run은 인터넷에 아무것도 보내지 않아요.</span><span class="ln">내 컴퓨터에 이미 있는 세션 기록을 읽기만 해요.</span></p>
       </div>
       <dl class="privacy-list" style="margin:0">
-        <div><dt data-i18n="privacy.reads.title">읽는 것</dt><dd data-i18n="privacy.reads.body"><code>~/.claude/projects</code>와 <code>~/.codex/sessions</code>의 세션 기록, Claude 데스크탑 앱의 세션 정보. 제목, 모델, 토큰 사용량, 응답이 끝났는지 같은 상태만 써요.</dd></div>
+        <div><dt data-i18n="privacy.reads.title">읽는 것</dt><dd data-i18n="privacy.reads.body"><code>~/.claude/projects</code>와 <code>~/.codex/sessions</code>의 세션 기록, Claude 데스크탑 앱의 세션 정보. 제목, 모델, 토큰 사용량, 5시간·주간 한도 사용률, 응답이 끝났는지 같은 상태만 써요.</dd></div>
         <div><dt data-i18n="privacy.not.title">하지 않는 것</dt><dd data-i18n="privacy.not.body">대화 내용을 밖으로 보내거나 따로 저장하지 않아요. 계정 정보도 다루지 않아요.</dd></div>
         <div><dt data-i18n="privacy.opt.title">선택 사항</dt><dd data-i18n="privacy.opt.body">승인 창을 감지하려면 Claude Code의 설정 파일에 hook 항목 하나를 직접 추가해야 해요. 추가하지 않아도 나머지 기능은 그대로 동작해요.</dd></div>
       </dl>
@@ -703,9 +709,10 @@
     "f2.title": "Click a card to jump to that session", "f2.body": "Conversations in the Claude desktop app open in the app. Terminal sessions bring the matching iTerm2 or Terminal tab to the front.",
     "f3.title": "Notifications take you there too", "f3.body": "macOS notifications say “Task finished”, “Approval needed” or “Answer needed”. Click one to go straight to that session.",
     "f4.title": "Context usage", "f4.body": "Usage reflects each model's own context window size. When the window size can't be confirmed, a ~ before the number marks it as an estimate.",
+    "f5.title": "AI usage at a glance", "f5.body": "The 5-hour and weekly limits for Claude and Codex stay pinned at the top of the panel. See how much you've used and how long until it resets; the bar changes color as you near a limit. Values update whenever you use that AI.",
     "privacy.eyebrow": "Privacy", "privacy.title": "Nothing leaves your computer.",
     "privacy.lead": "<span class=\"ln\">Ai Run sends nothing to the internet.</span><span class=\"ln\">It only reads session records that are already on your computer.</span>",
-    "privacy.reads.title": "What it reads", "privacy.reads.body": "Session records in <code>~/.claude/projects</code> and <code>~/.codex/sessions</code>, plus session info from the Claude desktop app. It only uses status information: the title, model, token usage and whether a response has finished.",
+    "privacy.reads.title": "What it reads", "privacy.reads.body": "Session records in <code>~/.claude/projects</code> and <code>~/.codex/sessions</code>, plus session info from the Claude desktop app. It only uses status information: the title, model, token usage, 5-hour and weekly limit usage, and whether a response has finished.",
     "privacy.not.title": "What it doesn't do", "privacy.not.body": "It doesn't send your conversations anywhere or store them separately. It doesn't handle account information either.",
     "privacy.opt.title": "Optional", "privacy.opt.body": "To detect approval prompts, you add one hook entry to Claude Code's settings file yourself. Everything else works without it.",
     "footer.1": "Ai Run is a personal project.",
