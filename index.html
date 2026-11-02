@@ -397,7 +397,7 @@
       </div>
       <div class="feature">
         <h3 data-i18n="f5.title">AI 사용량도 한눈에</h3>
-        <p data-i18n="f5.body">Claude와 Codex의 5시간·주간 한도를 패널 맨 위에 고정해서 보여줘요. 얼마나 썼는지와 초기화까지 남은 시간을 알 수 있고, 한도에 가까워지면 막대 색이 바뀌어요. 값은 그 AI를 쓸 때 갱신돼요.</p>
+        <p data-i18n="f5.body">Claude와 Codex의 5시간·주간 한도를 패널 맨 위에 고정해서 보여줘요. 얼마나 썼는지와 초기화까지 남은 시간을 알 수 있고, 한도에 가까워지면 막대 색이 바뀌어요. Claude 데스크탑 앱을 켜 두면 1분 안팎으로 갱신되고, 오래된 값은 “52분 전 기준”처럼 알려요.</p>
       </div>
     </div>
   </section>
@@ -410,7 +410,7 @@
         <p class="lead" style="margin-top:14px" data-i18n="privacy.lead"><span class="ln">Ai Run은 인터넷에 아무것도 보내지 않아요.</span><span class="ln">내 컴퓨터에 이미 있는 세션 기록을 읽기만 해요.</span></p>
       </div>
       <dl class="privacy-list" style="margin:0">
-        <div><dt data-i18n="privacy.reads.title">읽는 것</dt><dd data-i18n="privacy.reads.body"><code>~/.claude/projects</code>와 <code>~/.codex/sessions</code>의 세션 기록, Claude 데스크탑 앱의 세션 정보. 제목, 모델, 토큰 사용량, 5시간·주간 한도 사용률, 응답이 끝났는지 같은 상태만 써요.</dd></div>
+        <div><dt data-i18n="privacy.reads.title">읽는 것</dt><dd data-i18n="privacy.reads.body"><code>~/.claude/projects</code>와 <code>~/.codex/sessions</code>의 세션 기록, Claude 데스크탑 앱의 세션 정보와, 앱이 내 컴퓨터에 임시로 저장해 둔 사용량 응답(5시간·주간 사용률 두 가지 값만). 제목, 모델, 토큰 사용량, 한도 사용률, 응답이 끝났는지 같은 상태만 써요. 로그인 정보는 읽지 않아요.</dd></div>
         <div><dt data-i18n="privacy.not.title">하지 않는 것</dt><dd data-i18n="privacy.not.body">대화 내용을 밖으로 보내거나 따로 저장하지 않아요. 계정 정보도 다루지 않아요.</dd></div>
         <div><dt data-i18n="privacy.opt.title">설정 파일</dt><dd data-i18n="privacy.opt.body">Claude Code를 쓰고 있으면, 처음 켤 때 Claude Code의 설정 파일(<code>~/.claude/settings.json</code>)에 항목 두 개를 자동으로 추가해요. 승인 대기를 알리는 hook과 사용량을 저장하는 statusLine이에요. 이미 쓰는 statusLine은 그대로 실행돼요. 바꾸기 전에 백업을 만들고, 우클릭 메뉴의 Claude Code 연동에서 언제든 해제할 수 있어요.</dd></div>
       </dl>
@@ -709,10 +709,10 @@
     "f2.title": "Click a card to jump to that session", "f2.body": "Conversations in the Claude desktop app open in the app. Terminal sessions bring the matching iTerm2 or Terminal tab to the front.",
     "f3.title": "Notifications take you there too", "f3.body": "macOS notifications say “Task finished”, “Approval needed” or “Answer needed”. Click one to go straight to that session.",
     "f4.title": "Context usage", "f4.body": "Usage reflects each model's own context window size. When the window size can't be confirmed, a ~ before the number marks it as an estimate.",
-    "f5.title": "AI usage at a glance", "f5.body": "The 5-hour and weekly limits for Claude and Codex stay pinned at the top of the panel. See how much you've used and how long until it resets; the bar changes color as you near a limit. Values update whenever you use that AI.",
+    "f5.title": "AI usage at a glance", "f5.body": "The 5-hour and weekly limits for Claude and Codex stay pinned at the top of the panel. See how much you've used and how long until it resets; the bar changes color as you near a limit. With the Claude desktop app open it updates about once a minute, and an old value is labeled like “52 min ago”.",
     "privacy.eyebrow": "Privacy", "privacy.title": "Nothing leaves your computer.",
     "privacy.lead": "<span class=\"ln\">Ai Run sends nothing to the internet.</span><span class=\"ln\">It only reads session records that are already on your computer.</span>",
-    "privacy.reads.title": "What it reads", "privacy.reads.body": "Session records in <code>~/.claude/projects</code> and <code>~/.codex/sessions</code>, plus session info from the Claude desktop app. It only uses status information: the title, model, token usage, 5-hour and weekly limit usage, and whether a response has finished.",
+    "privacy.reads.title": "What it reads", "privacy.reads.body": "Session records in <code>~/.claude/projects</code> and <code>~/.codex/sessions</code>, plus session info from the Claude desktop app and the usage response the app keeps temporarily on your computer (just the 5-hour and weekly usage values). It only uses status information: the title, model, token usage, limit usage, and whether a response has finished. It never reads your login credentials.",
     "privacy.not.title": "What it doesn't do", "privacy.not.body": "It doesn't send your conversations anywhere or store them separately. It doesn't handle account information either.",
     "privacy.opt.title": "Settings file", "privacy.opt.body": "If you use Claude Code, the first launch adds two entries to its settings file (<code>~/.claude/settings.json</code>): a hook that reports approval prompts and a statusLine that saves usage. A statusLine you already use keeps running. It makes a backup first, and you can turn it off anytime from Claude Code integration in the right-click menu.",
     "footer.1": "Ai Run is a personal project.",
