@@ -35,20 +35,10 @@
     --amber-ink: #5c4300;
     --bar-1: #73a6ff;
     --bar-2: #ad80ff;
-    --stage-1: #c9ad93;
-    --stage-2: #a98270;
-    --stage-3: #6f5a58;
     --strip: #2b2626;
-    --glass-bg: rgba(255, 255, 255, 0.16);
-    --glass-line: rgba(255, 255, 255, 0.34);
     --glass-ink: #ffffff;
     --glass-muted: rgba(255, 255, 255, 0.72);
-    --track: rgba(255, 255, 255, 0.22);
     --menubar-bg: rgba(28, 24, 26, 0.42);
-    --pastel-1: #ff9ec7;
-    --pastel-2: #ffc79e;
-    --pastel-3: #bda9ff;
-    --pastel-4: #9ed1ff;
     --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
     --font-pixel: "DotGothic16", "Apple SD Gothic Neo", "Noto Sans KR", monospace;
   }
@@ -62,9 +52,6 @@
       --btn-bg: #f5f5f7;
       --btn-fg: #1d1d1f;
       --btn-ghost: rgba(255, 255, 255, 0.09);
-      --stage-1: #6b5547;
-      --stage-2: #52403f;
-      --stage-3: #2d2527;
       --strip: #1c1819;
       color-scheme: dark;
     }
@@ -78,9 +65,6 @@
     --btn-bg: #f5f5f7;
     --btn-fg: #1d1d1f;
     --btn-ghost: rgba(255, 255, 255, 0.09);
-    --stage-1: #6b5547;
-    --stage-2: #52403f;
-    --stage-3: #2d2527;
     --strip: #1c1819;
     color-scheme: dark;
   }
@@ -161,17 +145,7 @@
   .hero .lead { margin-top: 4px; }
   .cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 
-  /* 무대: 바탕화면 + 메뉴바 + 패널 */
-  .stage {
-    position: relative;
-    border-radius: 28px;
-    background:
-      radial-gradient(120% 90% at 85% 0%, var(--stage-1), transparent 60%),
-      linear-gradient(165deg, var(--stage-1), var(--stage-2) 58%, var(--stage-3));
-    padding: 0 0 36px;
-    overflow: hidden;
-    border: 1px solid var(--line);
-  }
+  /* 메뉴바 */
   .menubar {
     height: 44px;
     display: flex;
@@ -191,53 +165,6 @@
   .menubar .pill { background: rgba(255, 255, 255, 0.85); color: #1d1d1f; border-radius: 5px; padding: 0 6px; font-size: 12px; line-height: 18px; }
   .menubar canvas { display: block; image-rendering: pixelated; }
   @media (max-width: 560px) { .menubar .left span.extra { display: none; } }
-
-  /* 줄이 펼쳐질 때(+15px) 스테이지 크기가 변하지 않도록, 펼쳐진 높이만큼 미리 확보해 둔다. */
-  .stage-body { display: flex; justify-content: flex-end; align-items: flex-start; padding: 14px 18px 0; min-height: 244px; }
-  @media (max-width: 760px) { .stage-body { justify-content: center; } }
-  .panel {
-    width: min(300px, 100%);
-    border-radius: 20px;
-    padding: 6px;
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-line);
-    -webkit-backdrop-filter: blur(28px) saturate(1.6);
-    backdrop-filter: blur(28px) saturate(1.6);
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
-    color: var(--glass-ink);
-    font-size: 14px;
-    line-height: 1.35;
-  }
-  .row { position: relative; border-radius: 14px; padding: 12px 15px; outline-offset: -2px; }
-  .row + .row::before { content: ""; position: absolute; top: 0; left: 15px; right: 15px; height: 0.5px; background: rgba(255, 255, 255, 0.22); }
-  .flow {
-    position: absolute; inset: 3px 0; border-radius: 12px; pointer-events: none; opacity: 0;
-    transition: opacity 1.5s ease-in-out;
-    background:
-      radial-gradient(60% 100% at 15% 25%, var(--pastel-1), transparent 70%),
-      radial-gradient(60% 100% at 85% 75%, var(--pastel-4), transparent 70%),
-      radial-gradient(55% 90% at 50% 10%, var(--pastel-3), transparent 70%),
-      radial-gradient(50% 90% at 60% 95%, var(--pastel-2), transparent 70%);
-    background-size: 220% 220%;
-    animation: drift 16s ease-in-out infinite alternate;
-  }
-  .row[data-state="running"] .flow { opacity: 0.34; }
-  @keyframes drift {
-    0% { background-position: 0% 0%, 100% 100%, 40% 0%, 70% 100%; }
-    100% { background-position: 100% 60%, 0% 20%, 60% 100%, 30% 0%; }
-  }
-  .row-inner { position: relative; display: grid; gap: 9px; }
-  .row-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
-  .row-title { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .row-pct { font-size: 12px; font-variant-numeric: tabular-nums; color: var(--glass-muted); flex: none; }
-  .row[data-state="done"] .row-pct { color: var(--glass-ink); font-weight: 600; }
-  .row-pill { flex: none; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: rgba(255, 204, 77, 0.38); color: var(--glass-ink); }
-  .bar { height: 4px; border-radius: 99px; background: var(--track); overflow: hidden; }
-  .bar i { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--bar-1), var(--bar-2)); }
-  .detail { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 0.25s ease, opacity 0.25s ease; }
-  .detail > div { overflow: hidden; display: flex; justify-content: space-between; gap: 8px; font-size: 11px; color: var(--glass-muted); font-variant-numeric: tabular-nums; }
-  .row:hover .detail, .row:focus-visible .detail, .row:focus-within .detail { grid-template-rows: 1fr; opacity: 1; }
-  .row:hover .detail > div, .row:focus-visible .detail > div { padding-top: 1px; }
 
   /* 히어로 무대: 파란 물결 바탕화면 위에서 마우스가 패널의 카드를 눌러 해당 창으로 이동하는 장면이 반복된다. */
   .tour {
@@ -338,12 +265,6 @@
   .state h3 { padding-inline: 6px; }
   .state p { padding-inline: 6px; color: var(--muted); font-size: 0.96rem; }
 
-  /* 데모 */
-  .demo-grid { margin-top: 36px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; }
-  .controls { display: flex; flex-wrap: wrap; gap: 8px; }
-  .chip { font: inherit; font-size: 0.95rem; padding: 9px 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; }
-  .chip[aria-pressed="true"] { background: var(--btn-bg); color: var(--btn-fg); border-color: transparent; }
-
   /* 기능 */
   /* 항목이 4개라서 2x2로 놓는다. 자동 열 개수에 맡기면 넓은 화면에서 3개 + 1개로 나뉘어 마지막 하나가 혼자 아래에 남는다. */
   .features { margin-top: 36px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; }
@@ -366,8 +287,7 @@
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     section.arrived h2 { animation: none; }
-    .flow { animation: none; }
-    .detail, .flow, [data-i18n], [data-st], .lang-thumb { transition: none; }
+    [data-i18n], [data-st], .lang-thumb { transition: none; }
   }
 </style>
 
@@ -377,7 +297,6 @@
     <a class="brand" href="#top"><svg class="logo" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v10H3zM0 9h3v3H0zM21 9h3v3h-3zM4 15h2v4H4zM7 15h2v4H7zM15 15h2v4h-2zM18 15h2v4h-2z"/><path class="eye" d="M6 8h2v3H6zM16 8h2v3h-2z"/></svg>Desktoto</a>
     <div class="nav-links">
       <a class="text" href="#states" data-i18n="nav.states">상태</a>
-      <a class="text" href="#demo" data-i18n="nav.demo">데모</a>
       <a class="text" href="#privacy" data-i18n="nav.privacy">개인정보</a>
       <div class="lang" role="group" aria-label="Language" data-active="ko">
         <span class="lang-thumb" aria-hidden="true"></span>
@@ -395,7 +314,6 @@
     <p class="lead" data-i18n="hero.lead"><span class="ln">Desktoto는 Claude Code와 Codex 세션의 진행 상태를 메뉴바의 작은 캐릭터로 보여줘요.</span><span class="ln">작업이 끝났는지, 내 답을 기다리는지 창을 열지 않고도 알 수 있어요.</span></p>
     <div class="cta">
       <a class="btn" href="https://github.com/huniversal" target="_blank" rel="noopener noreferrer" data-i18n="hero.cta1">GitHub에서 보기</a>
-      <a class="btn ghost" href="#demo" data-i18n="hero.cta2">직접 눌러 보기</a>
     </div>
     <div id="heroStage" style="width:100%"></div>
   </header>
@@ -439,22 +357,6 @@
         <h3 data-i18n="states.sleep.title">졸음</h3>
         <p data-i18n="states.sleep.body">10분 동안 아무 활동이 없으면 캐릭터가 눈을 감고 졸아요. 새 작업이 시작되면 바로 깨요.</p>
       </article>
-    </div>
-  </section>
-
-  <section id="demo">
-    <p class="eyebrow" data-i18n="demo.eyebrow">데모</p>
-    <h2 style="margin-top:14px" data-i18n="demo.title">직접 눌러 보세요.</h2>
-    <p class="lead" style="margin-top:14px" data-i18n="demo.lead"><span class="ln">첫 번째 세션의 상태를 바꾸면 메뉴바의 캐릭터와 패널이 함께 바뀌어요.</span><span class="ln">카드 위에 마우스를 올리면 모델과 토큰 수가 펼쳐져요.</span></p>
-    <div class="demo-grid">
-      <div class="controls" id="demoControls" role="group" aria-label="첫 번째 세션 상태" data-i18n-aria="demo.controls">
-        <button class="chip" data-state="running" aria-pressed="true" data-i18n="chip.running">진행 중</button>
-        <button class="chip" data-state="waiting" aria-pressed="false" data-i18n="chip.waiting">필요</button>
-        <button class="chip" data-state="done" aria-pressed="false" data-i18n="chip.done">완료</button>
-        <button class="chip" data-state="idle" aria-pressed="false" data-i18n="chip.idle">대기</button>
-        <button class="chip" data-state="sleep" aria-pressed="false" data-i18n="chip.sleep">잠듦</button>
-      </div>
-      <div id="demoStage"></div>
     </div>
   </section>
 
@@ -648,19 +550,19 @@
   /* 언어: 데모 화면(메뉴바, 세션 제목, 알약)은 스크립트가 만들어서 따로 사전을 둔다. */
   var lang = "ko";
   var STAGE_TEXT = {
-    ko: { file: "파일", edit: "편집", view: "보기", go: "이동", input: "한", clock: "오전 10:24", title0: "결제 모듈 리팩터링", title1: "로그인 버그 수정", title2: "문서 정리", pill: "필요", label: "Desktoto가 메뉴바와 패널에 표시되는 모습의 예시",
+    ko: { file: "파일", edit: "편집", view: "보기", go: "이동", input: "한", clock: "오전 10:24", title0: "결제 모듈 리팩터링", title1: "로그인 버그 수정", title2: "문서 정리",
       tourLabel: "마우스가 패널의 세션 카드를 누르면 해당 터미널이나 앱 창이 앞으로 나오는 장면의 예시",
       tourT1: "결제 모듈을 정리할게요.", tourT2: "테스트 12개 통과", tourT3: "이 변경을 적용할까요?",
       tourMe: "로그인이 가끔 실패하는 이유를 찾아줘", tourAi: "토큰이 만료될 때 갱신 요청이 두 번 나가고 있어요. 한 번만 보내도록 고칠게요.", tourInput: "메시지를 입력하세요",
       tourH5: "5시간", tourWk: "주간", tourR1: "3시간 12분", tourR2: "4일 2시간", tourR3: "4시간 40분", tourR4: "6일 1시간"  },
-    en: { file: "File", edit: "Edit", view: "View", go: "Go", input: "A", clock: "10:24 AM", title0: "Refactor payments module", title1: "Fix login bug", title2: "Tidy up docs", pill: "Needed", label: "Example of how Desktoto appears in the menu bar and panel",
+    en: { file: "File", edit: "Edit", view: "View", go: "Go", input: "A", clock: "10:24 AM", title0: "Refactor payments module", title1: "Fix login bug", title2: "Tidy up docs",
       tourLabel: "Example of a mouse clicking a session card in the panel and the matching terminal or app window coming to the front",
       tourT1: "I'll tidy up the payments module.", tourT2: "12 tests passed", tourT3: "Apply this change?",
       tourMe: "Find out why login sometimes fails", tourAi: "The refresh request goes out twice when the token expires. I'll make it send only once.", tourInput: "Type a message",
       tourH5: "5h", tourWk: "Weekly", tourR1: "3h 12m", tourR2: "4d 2h", tourR3: "4h 40m", tourR4: "6d 1h" }
   };
 
-  /* 무대: 메뉴바 + 패널. 첫 번째 세션의 상태를 바꾸면 아이콘과 패널이 함께 바뀐다. */
+  /* 히어로 무대에서 쓰는 세션 목록과 메뉴바 */
   var SESSIONS = [
     { title: "결제 모듈 리팩터링", model: "claude-sonnet-5-5", used: 372000, windowSize: 1000000 },
     { title: "로그인 버그 수정", model: "claude-opus-4-8", used: 181000, windowSize: 1000000 },
@@ -673,50 +575,6 @@
       '<div class="left"><b>Finder</b><span data-st="file">파일</span><span data-st="edit">편집</span><span class="extra" data-st="view">보기</span><span class="extra" data-st="go">이동</span></div>' +
       '<div class="right"><canvas class="icon"></canvas><span class="pill" data-st="input">한</span><span data-st="clock">오전 10:24</span></div>' +
     '</div>';
-
-  function buildStage(root, unit, options) {
-    root.innerHTML =
-      '<div class="stage" aria-label="Desktoto가 메뉴바와 패널에 표시되는 모습의 예시" data-st-label="label">' +
-        MENUBAR +
-        '<div class="stage-body"><div class="panel" role="list">' +
-          SESSIONS.map(function (s, i) {
-            var pct = Math.round(s.used / s.windowSize * 100);
-            return '<div class="row" role="listitem" tabindex="0" data-index="' + i + '" data-state="' + (i === 0 ? "running" : "idle") + '">' +
-              '<div class="flow"></div><div class="row-inner">' +
-              '<div class="row-head"><span class="row-title" data-st="title' + i + '">' + s.title + '</span><span class="row-pct" data-pct>' + pct + '%</span></div>' +
-              '<div class="bar"><i style="width:' + pct + '%"></i></div>' +
-              '<div class="detail"><div><span>' + s.model + '</span><span>' + formatTokens(s.used) + ' / ' + formatTokens(s.windowSize) + '</span></div></div>' +
-              '</div></div>';
-          }).join("") +
-        '</div></div>' +
-      '</div>';
-    var icon = new Sprite(root.querySelector("canvas.icon"), unit, { mode: "run" });
-    var row = root.querySelector('.row[data-index="0"]');
-    var head = row.querySelector(".row-head");
-    var pctEl = row.querySelector("[data-pct]");
-    var basePct = pctEl.textContent;
-
-    function setState(state) {
-      row.setAttribute("data-state", state);
-      var pill = head.querySelector(".row-pill");
-      if (pill) pill.remove();
-      pctEl.hidden = false;
-      pctEl.textContent = basePct;
-      if (state === "waiting") {
-        pctEl.hidden = true;
-        var el = document.createElement("span");
-        el.className = "row-pill";
-        el.setAttribute("data-st", "pill");
-        el.textContent = STAGE_TEXT[lang].pill;
-        head.appendChild(el);
-      }
-      icon.mode = state === "running" ? "run" : (state === "sleep" ? "sleep" : "stand");
-      icon.waiting = state === "waiting";
-      icon.dot = state === "done";
-      if (state === "done") icon.fireFirework(); else { icon.fw = null; icon.render(); }
-    }
-    return { setState: setState };
-  }
 
   /* 히어로: 마우스가 메뉴바의 캐릭터를 눌러 패널을 열고, 카드를 누르면 그 세션의 창(터미널 또는 앱)이 앞으로 나오는 장면을 번갈아 반복한다. */
   function buildHeroTour(root) {
@@ -837,16 +695,6 @@
   }
   buildHeroTour(document.getElementById("heroStage"));
 
-  /* 직접 눌러 보기 */
-  var demo = buildStage(document.getElementById("demoStage"), 2);
-  var chips = document.querySelectorAll("#demoControls .chip");
-  chips.forEach(function (chip) {
-    chip.addEventListener("click", function () {
-      chips.forEach(function (c) { c.setAttribute("aria-pressed", c === chip ? "true" : "false"); });
-      demo.setState(chip.getAttribute("data-state"));
-    });
-  });
-
   /* 헤더 메뉴: 누르면 해당 섹션으로 부드럽게 이동하고, 지금 보고 있는 섹션을 표시한다. */
   (function () {
     var links = [].slice.call(document.querySelectorAll(".nav-links a.text"));
@@ -889,10 +737,10 @@
 
   /* 영어 문구. 한국어는 HTML에 들어 있는 원문을 그대로 쓰므로 사전에는 영어만 둔다. */
   var EN = {
-    "nav.states": "States", "nav.demo": "Demo", "nav.privacy": "Privacy",
+    "nav.states": "States", "nav.privacy": "Privacy",
     "hero.title": "While AI works,<br>watch it from your menu bar.",
     "hero.lead": "<span class=\"ln\">Desktoto shows the status of your Claude Code and Codex sessions as a small character in the menu bar.</span><span class=\"ln\">See when a task has finished, or when it's waiting for you, without opening a window.</span>",
-    "hero.cta1": "View on GitHub", "hero.cta2": "Try the demo",
+    "hero.cta1": "View on GitHub",
     "problem.eyebrow": "The problem", "problem.title": "Run several sessions, and things slip by.",
     "problem.1": "You work in another window and only notice a task finished long after it did.",
     "problem.2": "An approval prompt is open and the AI is stuck, but you don't know and keep waiting.",
@@ -903,10 +751,6 @@
     "states.wait.title": "Question mark", "states.wait.body": "A session needs your approval or an answer. A question mark appears while anything is waiting for you.",
     "states.sleep.title": "Dozing off", "states.sleep.body": "After 10 minutes with no activity, the character closes its eyes and dozes off. It wakes up as soon as a new task starts.",
     "states.dot.title": "Purple dot", "states.dot.body": "There's a finished task you haven't looked at yet. The dot goes away once you open the panel.",
-    "demo.eyebrow": "Demo", "demo.title": "Try it yourself.",
-    "demo.lead": "<span class=\"ln\">Change the first session's state and the menu bar character and panel change with it.</span><span class=\"ln\">Hover a card to reveal its model and token count.</span>",
-    "demo.controls": "State of the first session",
-    "chip.running": "Running", "chip.waiting": "Needed", "chip.done": "Done", "chip.idle": "Idle", "chip.sleep": "Asleep",
     "features.eyebrow": "Features", "features.title": "Only what you need to see.",
     "f1.title": "Every session in one panel", "f1.body": "Shows the title, context usage and a bar. The model and token count appear only when you hover. Sessions that need approval or an answer rise to the top.",
     "f2.title": "Click a card to jump to that session", "f2.body": "Conversations in the Claude desktop app open in the app. Terminal sessions bring the matching iTerm2 or Terminal tab to the front.",
